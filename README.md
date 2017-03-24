@@ -9,6 +9,4 @@ Welcome! This is the official Github of the Auxilium bot for Discord. This bot i
 
 Auxilium is a multi-purpose Discord bot that makes your life easier. It provides everything from server management, to user management, to full logging of bans/kicks/joins/etc... And everything else you would want in a server management bot!
 
-Full command list found on the [Site (WIP).]()
-
 [Patreon](https://www.patreon.com/xaanit)
