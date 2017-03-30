@@ -180,9 +180,23 @@ public class Util {
         return "&#x38;&#x20e3;";
       case 9:
         return "&#x39;&#x20e3;";
-      default:
+      case 10:
         return "&#x1f51f;";
     }
+    return "";
+  }
+
+  /**
+   * Checks to see if the reaction is a valid page
+   * 
+   * @param r The reaction to test
+   * @return True if it is, false otherwise
+   */
+  public static boolean isValidPageEmoji(IReaction r) {
+    for (int i = 0; i < 11; i++)
+      if (r.getUnicodeEmoji().getHtmlHexadecimal().equals(pageHexadecimal(i)))
+        return true;
+    return false;
   }
 
   /**

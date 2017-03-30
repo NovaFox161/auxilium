@@ -24,9 +24,11 @@ public class ReactionListener {
     IReaction reaction = event.getReaction();
     IMessage message = event.getMessage();
 
-    if (message.getEmbedded().size() > 0)
+    if (message.getEmbedded().size() > 0) {
       if (message.getEmbedded().get(0).getAuthor().getName().startsWith("Botinfo"))
-        new Botinfo().runCommand(user, channel, reaction, message);
+        if (Util.isValidPageEmoji(reaction))
+          new Botinfo().runCommand(user, channel, reaction, message);
+    }
 
   }
 
