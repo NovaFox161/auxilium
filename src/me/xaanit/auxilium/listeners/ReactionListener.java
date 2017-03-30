@@ -16,6 +16,7 @@ import sx.blah.discord.util.EmbedBuilder;
 
 public class ReactionListener {
 
+
   @EventSubscriber
   public void onReactionRemove(ReactionRemoveEvent event) {
     IUser user = event.getUser();
@@ -31,9 +32,10 @@ public class ReactionListener {
 
   @EventSubscriber
   public void onReactionAdd(ReactionAddEvent event) {
+    if (!Util.isOurUser(event.getAuthor()))
+      return;
     if (Util.isOurUser(event.getUser()))
       return;
-
     IGuild guild = event.getGuild();
     if (!Util.botHasPerm(Permissions.ADD_REACTIONS, guild)) {
       EmbedBuilder em = Util.basicEmbed("249999", GlobalConstants.CLIENT_PICTURE, "Critical error!",
@@ -45,7 +47,9 @@ public class ReactionListener {
       Util.sendMessage(guild.getOwner().getOrCreatePMChannel(), em.build());
       return;
     }
+
     Util.removeReaction(event.getMessage(), event.getUser(), event.getReaction());
+
   }
 
 }
