@@ -153,7 +153,7 @@ public class Botinfo implements ICommand {
     EmbedBuilder em = Util.basicEmbed("basic", GlobalConstants.CLIENT_PICTURE, "Botinfo - Support",
         "", message.getEmbedded().get(0).getFooter().getText());
     em.withDesc(
-        "Need support with Auxilium? Have ideas? Found a bug? My support server can be found [here (click me)!]()");
+        "Need support with Auxilium? Have ideas? Found a bug? My support server can be found [here (click me)!](https://discord.gg/wewb82H)");
     appendNaviInfo(em);
     Emoji[] toAdd = getEmojiList(3);
     Util.removeAllReactions(message);
