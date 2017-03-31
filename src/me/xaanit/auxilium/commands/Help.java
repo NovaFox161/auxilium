@@ -5,20 +5,18 @@ import java.util.List;
 
 import me.xaanit.auxilium.GlobalConstants;
 import me.xaanit.auxilium.interfaces.ICommand;
-import me.xaanit.auxilium.objects.Channel;
 import me.xaanit.auxilium.objects.Role;
 import me.xaanit.auxilium.util.Enums.CommandType;
 import me.xaanit.auxilium.util.Util;
 import sx.blah.discord.handle.obj.IChannel;
-import sx.blah.discord.handle.obj.IRole;
+import sx.blah.discord.handle.obj.IGuild;
 import sx.blah.discord.handle.obj.IUser;
 import sx.blah.discord.util.EmbedBuilder;
 
 public class Help implements ICommand {
 
   private String name = "help";
-  private List<Channel> channels = new ArrayList<Channel>();
-  private List<Role> roles = new ArrayList<Role>();
+
 
   public Help() {}
 
@@ -28,8 +26,8 @@ public class Help implements ICommand {
   }
 
   @Override
-  public List<Role> getRoles() {
-    return roles;
+  public List<Role> getRoles(IGuild guild) {
+    return new ArrayList<Role>();
   }
 
   @Override
@@ -45,41 +43,6 @@ public class Help implements ICommand {
   @Override
   public String arguments() {
     return "help [command]";
-  }
-
-
-  @Override
-  public void allowRole(IRole role) {
-    boolean found = false;
-    for (Role r : roles)
-      if (r.getRole().getID().equals(role.getID()))
-        found = true;
-    if (!found)
-      this.roles.add(new Role(role, role.getGuild()));
-  }
-
-  @Override
-  public void denyRole(IRole role) {
-    for (Role r : roles)
-      if (r.getRole().getID().equals(role.getID()))
-        this.roles.remove(r);
-  }
-
-  @Override
-  public void allowChannel(IChannel channel) {
-    boolean found = false;
-    for (Channel r : channels)
-      if (r.getChannel().getID().equals(channel.getID()))
-        found = true;
-    if (!found)
-      this.channels.add(new Channel(channel, channel.getGuild()));
-  }
-
-  @Override
-  public void denyChannel(IChannel channel) {
-    for (Channel r : channels)
-      if (r.getChannel().getID().equals(channel.getID()))
-        this.channels.remove(r);
   }
 
 

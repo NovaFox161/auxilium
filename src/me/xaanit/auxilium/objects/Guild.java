@@ -3,8 +3,8 @@ package me.xaanit.auxilium.objects;
 import java.util.ArrayList;
 import java.util.List;
 
-import me.xaanit.auxilium.commands.*;
 import me.xaanit.auxilium.interfaces.ICommand;
+import me.xaanit.auxilium.util.Util;
 
 public class Guild {
 
@@ -12,19 +12,49 @@ public class Guild {
   private String id = "";
   private boolean devOverride = true;
   private boolean crashReports = true;
-  private List<ICommand> commands = new ArrayList<ICommand>();
+  private List<Command> commands = new ArrayList<Command>();
 
 
-  public Guild() {
-    commands.add(new Botinfo());
-    commands.add(new Help());
+  public Guild(String id) {
+    this.id = id;
+    ICommand[] arr = Util.getCommandList();
+    for (ICommand c : arr)
+      this.commands.add(new Command(c.getCommmandName()));
   }
-  
-  public ICommand getCommand(String com) {
-    for(ICommand c : commands)
-      if(c.getCommmandName().equalsIgnoreCase(com))
+
+  public Command getCommand(String com) {
+    for (Command c : commands)
+      if (c.getName().equalsIgnoreCase(com))
         return c;
     return null;
+  }
+
+  public String getPrefix() {
+    return this.prefix;
+  }
+
+  public String getId() {
+    return this.id;
+  }
+
+  public boolean getDevOverride() {
+    return this.devOverride;
+  }
+
+  public boolean getCrashReports() {
+    return this.crashReports;
+  }
+
+  public void setPrefix(String prefix) {
+    this.prefix = prefix;
+  }
+
+  public void setDevOverride(boolean devOverride) {
+    this.devOverride = devOverride;
+  }
+
+  public void setCrashReports(boolean crashReports) {
+    this.crashReports = crashReports;
   }
 
 }

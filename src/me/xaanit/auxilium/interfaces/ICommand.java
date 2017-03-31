@@ -4,8 +4,7 @@ import java.util.List;
 
 import me.xaanit.auxilium.objects.Role;
 import me.xaanit.auxilium.util.Enums.CommandType;
-import sx.blah.discord.handle.obj.IChannel;
-import sx.blah.discord.handle.obj.IRole;
+import sx.blah.discord.handle.obj.IGuild;
 
 public interface ICommand {
 
@@ -22,9 +21,10 @@ public interface ICommand {
   /**
    * Returns a list of roles who can run the command.
    * 
+   * @param guild The guild to look at
    * @return Roles that can run command.
    */
-  public List<Role> getRoles();
+  public List<Role> getRoles(IGuild guild);
 
   /**
    * Gets Command Type
@@ -47,33 +47,6 @@ public interface ICommand {
    */
   public String arguments();
 
-  /**
-   * Allows a role to run the command
-   * 
-   * @param role The role to allow
-   */
-  public void allowRole(IRole role);
-
-  /**
-   * Denies a role from using the command
-   * 
-   * @param role The role to deny
-   */
-  public void denyRole(IRole role);
-
-  /**
-   * Allows the command to be run in a channel
-   * 
-   * @param channel The channel to allow
-   */
-  public void allowChannel(IChannel channel);
-
-  /**
-   * Denis the command to be run in a channel
-   * 
-   * @param channel The channel to deny
-   */
-  public void denyChannel(IChannel channel);
 
 
 }

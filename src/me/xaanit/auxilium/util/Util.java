@@ -17,11 +17,11 @@ import org.json.simple.parser.JSONParser;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.InstanceCreator;
 import com.vdurmont.emoji.Emoji;
 
 import me.xaanit.auxilium.GlobalConstants;
-import me.xaanit.auxilium.gson.instance.*;
+import me.xaanit.auxilium.commands.Botinfo;
+import me.xaanit.auxilium.commands.Help;
 import me.xaanit.auxilium.interfaces.ICommand;
 import me.xaanit.auxilium.objects.Guild;
 import sx.blah.discord.api.internal.json.objects.EmbedObject;
@@ -76,14 +76,14 @@ public class Util {
   public static void save(Guild g) {
     Gson gson = new GsonBuilder().setPrettyPrinting().create();
     String s = gson.toJson(g);
-    File aFile = new File(GlobalConstants.PATH + "test.json");
+    File aFile = new File(GlobalConstants.PATH + "\\guilds\\" + g.getId() + ".json");
     if (!aFile.exists())
       try {
         aFile.createNewFile();
       } catch (IOException e) {
         e.printStackTrace();
       }
-
+    
     FileWriter fw = null;
     try {
       fw = new FileWriter(aFile);
@@ -107,14 +107,9 @@ public class Util {
    * @param f The file to look at
    * @return The newly created Guild.
    */
-  @SuppressWarnings("unchecked")
-  public static Guild load(File f) {
-    InstanceCreator<ICommand>[] instances = new InstanceCreator[] {new BotinfoI(), new HelpI()};
-    GsonBuilder gb =
-        new GsonBuilder();
-    for (InstanceCreator<ICommand> c : instances)
-      gb.registerTypeAdapter(ICommand.class, c);
-    Gson g = gb.create();
+  public static Guild load(Guild g1) {
+    File f = new File(GlobalConstants.PATH + "\\guilds\\" + g1.getId() + ".json");
+    Gson g = new Gson();
     FileReader fr = null;
     try {
       fr = new FileReader(f);
@@ -145,6 +140,15 @@ public class Util {
    */
   public static boolean botHasPerm(Permissions perm, IGuild guild) {
     return GlobalConstants.client.getOurUser().getPermissionsForGuild(guild).contains(perm);
+  }
+
+  /**
+   * Gets the command list (So if I update it, both Guild and Help are fine)
+   * 
+   * @return The command list
+   */
+  public static ICommand[] getCommandList() {
+    return new ICommand[] {new Botinfo(), new Help()};
   }
 
   /* General */
@@ -284,6 +288,16 @@ public class Util {
    */
   public static String getNameAndDescrim(IUser user) {
     return user.getName() + "#" + user.getDiscriminator();
+  }
+
+  /**
+   * Returns the guild needed
+   * 
+   * @param guild The guild to look for
+   * @return The guild object
+   */
+  public static Guild getGuild(IGuild guild) {
+    return GlobalConstants.guilds.get(guild.getID());
   }
 
   /* Message Management */
