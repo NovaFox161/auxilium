@@ -3,7 +3,7 @@ package me.xaanit.auxilium.util;
 public class Enums {
 
   public static enum CommandType {
-    INFO
+    INFO, DEV
   }
 
   public static enum CustomError {

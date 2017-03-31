@@ -29,8 +29,10 @@ public class CommandListener {
     switch (args[0].toLowerCase().replaceFirst("\\+", "")) {
       case "botinfo":
         new Botinfo().runCommand(user, channel, null, message);
+        break;
       case "help":
         new Help().runCommmand(args, user, channel);
+        break;
     }
   }
 
