@@ -2,7 +2,10 @@ package me.xaanit.auxilium.util;
 
 import java.awt.Color;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.EnumSet;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -10,9 +13,12 @@ import java.util.concurrent.atomic.AtomicInteger;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.vdurmont.emoji.Emoji;
 
 import me.xaanit.auxilium.GlobalConstants;
+import me.xaanit.auxilium.objects.Guild;
 import sx.blah.discord.api.internal.json.objects.EmbedObject;
 import sx.blah.discord.handle.obj.IChannel;
 import sx.blah.discord.handle.obj.IGuild;
@@ -55,6 +61,57 @@ public class Util {
     }
     String s = (String) jsonObject.get(read);
     return s;
+  }
+
+  /**
+   * Saves a guild's info
+   * 
+   * @param g The guild to save
+   */
+  public static void save(Guild g) {
+    Gson gson = new GsonBuilder().setPrettyPrinting().create();
+    String s = gson.toJson(g);
+    File aFile = new File(GlobalConstants.PATH + "test.json");
+    if (!aFile.exists())
+      try {
+        aFile.createNewFile();
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+
+    FileWriter fw = null;
+    try {
+      fw = new FileWriter(aFile);
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+
+    try {
+      fw.write(s);
+      fw.close();
+    } catch (IOException e) {
+
+      e.printStackTrace();
+    }
+
+  }
+
+  /**
+   * Makes the guild object
+   * 
+   * @param f The file to look at
+   * @return The newly created Guild.
+   */
+  public static Guild a(File f) {
+    GsonBuilder gb = new GsonBuilder();
+    Gson g = gb.create();
+    FileReader fr = null;
+    try {
+      fr = new FileReader(f);
+    } catch (FileNotFoundException e) {
+      e.printStackTrace();
+    }
+    return g.fromJson(fr, Guild.class);
   }
 
   /* Bot */

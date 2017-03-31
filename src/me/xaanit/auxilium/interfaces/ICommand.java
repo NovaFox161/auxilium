@@ -3,6 +3,7 @@ package me.xaanit.auxilium.interfaces;
 import java.util.List;
 
 import me.xaanit.auxilium.util.Enums.CommandType;
+import sx.blah.discord.handle.obj.IChannel;
 import sx.blah.discord.handle.obj.IRole;
 
 public interface ICommand {
@@ -42,6 +43,34 @@ public interface ICommand {
    * @return The arguments
    */
   public String arguments();
+
+  /**
+   * Allows a role to run the command
+   * 
+   * @param role The role to allow
+   */
+  public void allowRole(IRole role);
+
+  /**
+   * Denies a role from using the command
+   * 
+   * @param role The role to deny
+   */
+  public void denyRole(IRole role);
+
+  /**
+   * Allows the command to be run in a channel
+   * 
+   * @param channel The channel to allow
+   */
+  public void allowChannel(IChannel channel);
+
+  /**
+   * Denis the command to be run in a channel
+   * 
+   * @param channel The channel to deny
+   */
+  public void denyChannel(IChannel channel);
 
 
 }

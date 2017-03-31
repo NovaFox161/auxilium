@@ -4,11 +4,13 @@ import java.util.List;
 
 import me.xaanit.auxilium.interfaces.ICommand;
 import me.xaanit.auxilium.util.Enums.CommandType;
+import sx.blah.discord.handle.obj.IChannel;
 import sx.blah.discord.handle.obj.IRole;
 
 public class Dev implements ICommand {
 
   private String name = "dev";
+
 
   public Dev() {}
 
@@ -39,6 +41,26 @@ public class Dev implements ICommand {
   public String arguments() {
     // TODO Auto-generated method stub
     return null;
+  }
+
+  @Override
+  public void allowRole(IRole role) {
+    return;
+  }
+
+  @Override
+  public void denyRole(IRole role) {
+    return;
+  }
+
+  @Override
+  public void allowChannel(IChannel channel) {
+    return;
+  }
+
+  @Override
+  public void denyChannel(IChannel channel) {
+    return;
   }
 
 

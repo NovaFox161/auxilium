@@ -1,5 +1,6 @@
 package me.xaanit.auxilium.commands;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.vdurmont.emoji.Emoji;
@@ -7,6 +8,8 @@ import com.vdurmont.emoji.EmojiManager;
 
 import me.xaanit.auxilium.GlobalConstants;
 import me.xaanit.auxilium.interfaces.ICommand;
+import me.xaanit.auxilium.objects.Channel;
+import me.xaanit.auxilium.objects.Role;
 import me.xaanit.auxilium.util.Enums.CommandType;
 import me.xaanit.auxilium.util.Util;
 import sx.blah.discord.api.IShard;
@@ -21,10 +24,9 @@ import sx.blah.discord.util.EmbedBuilder;
 public class Botinfo implements ICommand {
 
   private String name = "botinfo";
+  private List<Channel> channels = new ArrayList<Channel>();
+  private List<Role> roles = new ArrayList<Role>();
 
-  Emoji[] pages = new Emoji[] {EmojiManager.getForAlias("zero"), EmojiManager.getForAlias("one"),
-      EmojiManager.getForAlias("two"), EmojiManager.getForAlias("three"),
-      EmojiManager.getForAlias("four")};
 
   public Botinfo() {}
 
@@ -51,6 +53,46 @@ public class Botinfo implements ICommand {
   @Override
   public String arguments() {
     return "None";
+  }
+
+  @Override
+  public void allowRole(IRole role) {
+    boolean found = false;
+    for (Role r : roles)
+      if (r.getRole().getID().equals(role.getID()))
+        found = true;
+    if (!found)
+      this.roles.add(new Role(role, role.getGuild()));
+  }
+
+  @Override
+  public void denyRole(IRole role) {
+    boolean found = false;
+    for (Role r : roles)
+      if (r.getRole().getID().equals(role.getID()))
+        found = true;
+    if (found)
+      this.roles.remove(new Role(role, role.getGuild()));
+  }
+
+  @Override
+  public void allowChannel(IChannel channel) {
+    boolean found = false;
+    for (Channel r : channels)
+      if (r.getChannel().getID().equals(channel.getID()))
+        found = true;
+    if (!found)
+      this.channels.add(new Channel(channel, channel.getGuild()));
+  }
+
+  @Override
+  public void denyChannel(IChannel channel) {
+    boolean found = false;
+    for (Channel r : channels)
+      if (r.getChannel().getID().equals(channel.getID()))
+        found = true;
+    if (found)
+      this.channels.remove(new Channel(channel, channel.getGuild()));
   }
 
   public void runCommand(IUser user, IChannel channel, IReaction reaction, IMessage message) {
@@ -93,7 +135,7 @@ public class Botinfo implements ICommand {
 
   public boolean moduleNavigation(IUser user, IChannel channel, IMessage message) {
     EmbedBuilder em = Util.basicEmbed("basic", GlobalConstants.CLIENT_PICTURE,
-        "Botinfo - Navigation", "", message.getEmbedded().get(0).getFooter().getText());
+        "Botinfo - Navigation", "", message.getEmbeds().get(0).getFooter().getText());
     appendNaviInfo(em);
     Emoji[] toAdd = getEmojiList(0);
     Util.removeAllReactions(message);
@@ -109,7 +151,7 @@ public class Botinfo implements ICommand {
 
   public boolean modulePatreon(IUser user, IChannel channel, IMessage message) {
     EmbedBuilder em = Util.basicEmbed("basic", GlobalConstants.CLIENT_PICTURE, "Botinfo - Patreon",
-        "", message.getEmbedded().get(0).getFooter().getText());
+        "", message.getEmbeds().get(0).getFooter().getText());
     em.withDesc(
         "First off, thank you for wanting to donate to my patreon! It can be found [here.](https://www.patreon.com/xaanit)");
     appendNaviInfo(em);
@@ -128,7 +170,7 @@ public class Botinfo implements ICommand {
   public boolean moduleBasicInfo(IUser user, IChannel channel, IMessage message) {
     IShard shard = message.getGuild().getShard();
     EmbedBuilder em = Util.basicEmbed("basic", GlobalConstants.CLIENT_PICTURE, "Botinfo - Basic",
-        "", message.getEmbedded().get(0).getFooter().getText());
+        "", message.getEmbeds().get(0).getFooter().getText());
     em.appendField("Current Ping [Shard " + shard.getInfo()[0] + "]",
         shard.getResponseTime() + " ms", true);
     em.appendField("Version", Util.readConfig("version"), true);
@@ -151,7 +193,7 @@ public class Botinfo implements ICommand {
 
   public boolean moduleSupport(IUser user, IChannel channel, IMessage message) {
     EmbedBuilder em = Util.basicEmbed("basic", GlobalConstants.CLIENT_PICTURE, "Botinfo - Support",
-        "", message.getEmbedded().get(0).getFooter().getText());
+        "", message.getEmbeds().get(0).getFooter().getText());
     em.withDesc(
         "Need support with Auxilium? Have ideas? Found a bug? My support server can be found [here (click me)!](https://discord.gg/wewb82H)");
     appendNaviInfo(em);
@@ -170,7 +212,7 @@ public class Botinfo implements ICommand {
 
   public boolean moduleOtherbots(IUser user, IChannel channel, IMessage message) {
     EmbedBuilder em = Util.basicEmbed("basic", GlobalConstants.CLIENT_PICTURE,
-        "Botinfo - Other bots", "", message.getEmbedded().get(0).getFooter().getText());
+        "Botinfo - Other bots", "", message.getEmbeds().get(0).getFooter().getText());
     em.withDesc(
         "»» [Tatsumaki](https://www.tatsumaki.xyz/profile) - This is an all around amazing bot.\n"
             + "»» [Dyno]() - This is good for music\n"
@@ -204,6 +246,9 @@ public class Botinfo implements ICommand {
   }
 
   public Emoji[] getEmojiList(int pageToLeaveOut) {
+    Emoji[] pages = new Emoji[] {EmojiManager.getForAlias("zero"), EmojiManager.getForAlias("one"),
+        EmojiManager.getForAlias("two"), EmojiManager.getForAlias("three"),
+        EmojiManager.getForAlias("four")};
     Emoji[] arr = new Emoji[pages.length];
     for (int i = 0; i < pages.length; i++) {
       if (i != pageToLeaveOut) {
@@ -216,5 +261,7 @@ public class Botinfo implements ICommand {
     }
     return arr;
   }
+
+
 
 }

@@ -2,6 +2,8 @@ package me.xaanit.auxilium.listeners;
 
 import me.xaanit.auxilium.commands.Botinfo;
 import me.xaanit.auxilium.commands.Help;
+import me.xaanit.auxilium.objects.Guild;
+import me.xaanit.auxilium.util.Util;
 import sx.blah.discord.api.events.EventSubscriber;
 import sx.blah.discord.handle.impl.events.guild.channel.message.MessageReceivedEvent;
 import sx.blah.discord.handle.obj.IChannel;
@@ -9,6 +11,7 @@ import sx.blah.discord.handle.obj.IMessage;
 import sx.blah.discord.handle.obj.IUser;
 
 public class CommandListener {
+  public static Guild g = new Guild();
 
 
   @EventSubscriber
@@ -19,7 +22,11 @@ public class CommandListener {
     IMessage message = event.getMessage();
     String[] args = m.split("\\s");
 
-
+    // Test case to look at saving
+    if (m.equals("+test")) {
+      Util.save(g);
+      return;
+    }
 
     if (m.toString().startsWith("+"))
       getCommand(args, user, channel, message);
