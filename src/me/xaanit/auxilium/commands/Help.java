@@ -28,8 +28,8 @@ public class Help implements ICommand {
   }
 
   @Override
-  public List<IRole> getRoles() {
-    return new ArrayList<IRole>();
+  public List<Role> getRoles() {
+    return roles;
   }
 
   @Override

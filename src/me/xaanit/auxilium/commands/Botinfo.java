@@ -36,7 +36,7 @@ public class Botinfo implements ICommand {
   }
 
   @Override
-  public List<IRole> getRoles() {
+  public List<Role> getRoles() {
     return null;
   }
 

@@ -3,6 +3,7 @@ package me.xaanit.auxilium.commands;
 import java.util.List;
 
 import me.xaanit.auxilium.interfaces.ICommand;
+import me.xaanit.auxilium.objects.Role;
 import me.xaanit.auxilium.util.Enums.CommandType;
 import sx.blah.discord.handle.obj.IChannel;
 import sx.blah.discord.handle.obj.IRole;
@@ -20,7 +21,7 @@ public class Dev implements ICommand {
   }
 
   @Override
-  public List<IRole> getRoles() {
+  public List<Role> getRoles() {
     // TODO Auto-generated method stub
     return null;
   }

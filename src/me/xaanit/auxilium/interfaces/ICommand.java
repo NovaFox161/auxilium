@@ -2,11 +2,14 @@ package me.xaanit.auxilium.interfaces;
 
 import java.util.List;
 
+import me.xaanit.auxilium.objects.Role;
 import me.xaanit.auxilium.util.Enums.CommandType;
 import sx.blah.discord.handle.obj.IChannel;
 import sx.blah.discord.handle.obj.IRole;
 
 public interface ICommand {
+
+
 
   /**
    * Getting the name of the command.
@@ -21,7 +24,7 @@ public interface ICommand {
    * 
    * @return Roles that can run command.
    */
-  public List<IRole> getRoles();
+  public List<Role> getRoles();
 
   /**
    * Gets Command Type

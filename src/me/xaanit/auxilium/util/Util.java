@@ -64,7 +64,7 @@ public class Util {
   }
 
   /**
-   * Saves a guild's info
+   * Saves a guild's info to JSON
    * 
    * @param g The guild to save
    */
@@ -97,14 +97,13 @@ public class Util {
   }
 
   /**
-   * Makes the guild object
+   * Loads the guild's info from JSON
    * 
    * @param f The file to look at
    * @return The newly created Guild.
    */
-  public static Guild a(File f) {
-    GsonBuilder gb = new GsonBuilder();
-    Gson g = gb.create();
+  public static Guild load(File f) {
+    Gson g = new Gson();
     FileReader fr = null;
     try {
       fr = new FileReader(f);

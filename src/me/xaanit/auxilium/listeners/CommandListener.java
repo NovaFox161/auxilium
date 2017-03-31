@@ -1,5 +1,8 @@
 package me.xaanit.auxilium.listeners;
 
+import java.io.File;
+
+import me.xaanit.auxilium.GlobalConstants;
 import me.xaanit.auxilium.commands.Botinfo;
 import me.xaanit.auxilium.commands.Help;
 import me.xaanit.auxilium.objects.Guild;
@@ -24,7 +27,18 @@ public class CommandListener {
 
     // Test case to look at saving
     if (m.equals("+test")) {
+   //   g.getCommand("help").allowRole(event.getGuild().getRolesByName("Developer").get(0));
       Util.save(g);
+      try {
+        Thread.sleep(10000);
+      } catch (InterruptedException e) {
+        e.printStackTrace();
+      }
+
+      Guild a =Util.load(new File(GlobalConstants.PATH + "test.json"));
+      
+   //   System.out.println(a.getCommand("help").getRoles().get(0).getRole().getName());
+      
       return;
     }
 
