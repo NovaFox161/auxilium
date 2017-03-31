@@ -5,7 +5,8 @@
 
 ## Contributors
 
-- None
+- [@arkazeen](https://github.com/arkazeen) - Provided the regex for the Custom Embed command
+- [@I-Al-Istannen](https://github.com/I-Al-Istannen) - Provided the code for the Javadoc dev command
 
 
 # Misc Credits
