@@ -175,6 +175,7 @@ public class Botinfo implements ICommand {
         "»» [Tatsumaki](https://www.tatsumaki.xyz/profile) - This is an all around amazing bot.\n"
             + "»» [Dyno]() - This is good for music\n"
             + "»» [DisCal](https://www.cloudcraftgaming.com/discal/) - This is a very good bot for organising events.");
+    appendNaviInfo(em);
     Emoji[] toAdd = getEmojiList(4);
     Util.removeAllReactions(message);
     try {
