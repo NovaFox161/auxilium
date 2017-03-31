@@ -3,7 +3,7 @@ package me.xaanit.auxilium.objects;
 import java.util.ArrayList;
 import java.util.List;
 
-import me.xaanit.auxilium.commands.Botinfo;
+import me.xaanit.auxilium.commands.*;
 import me.xaanit.auxilium.interfaces.ICommand;
 
 public class Guild {
@@ -17,7 +17,7 @@ public class Guild {
 
   public Guild() {
     commands.add(new Botinfo());
- //   commands.add(new Help());
+    commands.add(new Help());
   }
   
   public ICommand getCommand(String com) {

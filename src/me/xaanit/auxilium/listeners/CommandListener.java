@@ -27,7 +27,7 @@ public class CommandListener {
 
     // Test case to look at saving
     if (m.equals("+test")) {
-   //   g.getCommand("help").allowRole(event.getGuild().getRolesByName("Developer").get(0));
+      // g.getCommand("help").allowRole(event.getGuild().getRolesByName("Developer").get(0));
       Util.save(g);
       try {
         Thread.sleep(10000);
@@ -35,10 +35,11 @@ public class CommandListener {
         e.printStackTrace();
       }
 
-      Guild a =Util.load(new File(GlobalConstants.PATH + "test.json"));
-      
-   //   System.out.println(a.getCommand("help").getRoles().get(0).getRole().getName());
-      
+      Guild a = Util.load(new File(GlobalConstants.PATH + "test.json"));
+      a.getCommand("botinfo").allowChannel(channel);
+      Util.save(a);
+      // System.out.println(a.getCommand("help").getRoles().get(0).getRole().getName());
+
       return;
     }
 

@@ -67,12 +67,9 @@ public class Botinfo implements ICommand {
 
   @Override
   public void denyRole(IRole role) {
-    boolean found = false;
     for (Role r : roles)
       if (r.getRole().getID().equals(role.getID()))
-        found = true;
-    if (found)
-      this.roles.remove(new Role(role, role.getGuild()));
+        this.roles.remove(r);
   }
 
   @Override
@@ -87,12 +84,9 @@ public class Botinfo implements ICommand {
 
   @Override
   public void denyChannel(IChannel channel) {
-    boolean found = false;
     for (Channel r : channels)
       if (r.getChannel().getID().equals(channel.getID()))
-        found = true;
-    if (found)
-      this.channels.remove(new Channel(channel, channel.getGuild()));
+        this.channels.remove(r);
   }
 
   public void runCommand(IUser user, IChannel channel, IReaction reaction, IMessage message) {

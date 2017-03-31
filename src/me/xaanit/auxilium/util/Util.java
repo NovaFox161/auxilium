@@ -6,6 +6,8 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.EnumSet;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -15,9 +17,12 @@ import org.json.simple.parser.JSONParser;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.InstanceCreator;
 import com.vdurmont.emoji.Emoji;
 
 import me.xaanit.auxilium.GlobalConstants;
+import me.xaanit.auxilium.gson.instance.*;
+import me.xaanit.auxilium.interfaces.ICommand;
 import me.xaanit.auxilium.objects.Guild;
 import sx.blah.discord.api.internal.json.objects.EmbedObject;
 import sx.blah.discord.handle.obj.IChannel;
@@ -102,8 +107,14 @@ public class Util {
    * @param f The file to look at
    * @return The newly created Guild.
    */
+  @SuppressWarnings("unchecked")
   public static Guild load(File f) {
-    Gson g = new Gson();
+    InstanceCreator<ICommand>[] instances = new InstanceCreator[] {new BotinfoI(), new HelpI()};
+    GsonBuilder gb =
+        new GsonBuilder();
+    for (InstanceCreator<ICommand> c : instances)
+      gb.registerTypeAdapter(ICommand.class, c);
+    Gson g = gb.create();
     FileReader fr = null;
     try {
       fr = new FileReader(f);
@@ -428,7 +439,10 @@ public class Util {
    * @param m The message to add to
    * @param es The reaction list to add
    */
-  public static void addReaction(IMessage m, Emoji... es) {
+  public static void addReaction(IMessage m, Emoji[] es2) {
+    List<Emoji> es1 = Arrays.asList(es2);
+    Collections.reverse(es1);
+    Emoji[] es = (Emoji[]) es1.toArray();
     final AtomicInteger i = new AtomicInteger();
     RequestBuffer.request(() -> {
       for (; i.get() < es.length; i.incrementAndGet()) {
