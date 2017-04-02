@@ -1,24 +1,8 @@
 package me.xaanit.auxilium.util;
 
-import java.awt.Color;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.time.Clock;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.EnumSet;
-import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
-
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.vdurmont.emoji.Emoji;
-
 import me.xaanit.auxilium.GlobalConstants;
 import me.xaanit.auxilium.commands.Botinfo;
 import me.xaanit.auxilium.commands.Define;
@@ -28,17 +12,22 @@ import me.xaanit.auxilium.interfaces.ICommand;
 import me.xaanit.auxilium.objects.Config;
 import me.xaanit.auxilium.objects.Guild;
 import sx.blah.discord.api.internal.json.objects.EmbedObject;
-import sx.blah.discord.handle.obj.IChannel;
-import sx.blah.discord.handle.obj.IGuild;
-import sx.blah.discord.handle.obj.IMessage;
-import sx.blah.discord.handle.obj.IReaction;
-import sx.blah.discord.handle.obj.IRole;
-import sx.blah.discord.handle.obj.IUser;
-import sx.blah.discord.handle.obj.Permissions;
+import sx.blah.discord.handle.obj.*;
 import sx.blah.discord.util.DiscordException;
 import sx.blah.discord.util.EmbedBuilder;
 import sx.blah.discord.util.MissingPermissionsException;
 import sx.blah.discord.util.RequestBuffer;
+
+import java.awt.*;
+import java.io.*;
+import java.time.Clock;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.EnumSet;
+import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class Util {
 
@@ -128,7 +117,7 @@ public class Util {
   /**
    * Loads the guild's info from JSON
    * 
-   * @param f The file to look at
+   * @param g1 The file to look at
    * @return The newly created Guild.
    */
   public static Guild load(IGuild g1) {
@@ -189,8 +178,7 @@ public class Util {
   /* General */
   /**
    * Makes a basic EmbedBuilder for you.
-   * 
-   * @param hex The hex code for the sidebar
+   *
    * @param authorIcon The author icon
    * @param authorName The author name
    * @param footerIcon The footer icon
@@ -505,7 +493,7 @@ public class Util {
    * Adds a reaction to the message
    * 
    * @param m The message to add to
-   * @param es The reaction list to add
+   * @param es2 The reaction list to add
    */
   public static void addReaction(IMessage m, Emoji[] es2) {
     List<Emoji> es1 = Arrays.asList(es2);
@@ -589,7 +577,7 @@ public class Util {
         channel.getGuild().getIconURL(), "User has too low of a rank!");
     String list = "";
     for (String str : roles) {
-      list += "»» " + channel.getGuild().getRoleByID(str).getName() + "\n";
+      list += "ï¿½ï¿½ " + channel.getGuild().getRoleByID(str).getName() + "\n";
     }
     em.withDesc(
         "You have too low of a rank! You need one of the following ranks to use the command:\n"

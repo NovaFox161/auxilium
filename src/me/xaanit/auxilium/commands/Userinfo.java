@@ -1,12 +1,12 @@
 package me.xaanit.auxilium.commands;
 
-import java.util.List;
-
 import me.xaanit.auxilium.interfaces.ICommand;
 import me.xaanit.auxilium.objects.Role;
 import me.xaanit.auxilium.util.Enums.CommandType;
 import me.xaanit.auxilium.util.Util;
 import sx.blah.discord.handle.obj.IGuild;
+
+import java.util.List;
 
 public class Userinfo implements ICommand {
 

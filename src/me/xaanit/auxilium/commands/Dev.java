@@ -1,9 +1,5 @@
 package me.xaanit.auxilium.commands;
 
-import java.awt.Color;
-import java.util.Collection;
-import java.util.List;
-
 import me.ialistannen.javadocbot.javadoc.JavadocManager;
 import me.ialistannen.javadocbot.javadoc.model.JavadocClass;
 import me.xaanit.auxilium.GlobalConstants;
@@ -11,15 +7,15 @@ import me.xaanit.auxilium.interfaces.ICommand;
 import me.xaanit.auxilium.objects.Role;
 import me.xaanit.auxilium.util.Enums.CommandType;
 import me.xaanit.auxilium.util.Util;
-import sx.blah.discord.handle.obj.IChannel;
-import sx.blah.discord.handle.obj.IEmbed;
+import sx.blah.discord.handle.obj.*;
 import sx.blah.discord.handle.obj.IEmbed.IEmbedAuthor;
 import sx.blah.discord.handle.obj.IEmbed.IEmbedField;
 import sx.blah.discord.handle.obj.IEmbed.IEmbedFooter;
-import sx.blah.discord.handle.obj.IGuild;
-import sx.blah.discord.handle.obj.IMessage;
-import sx.blah.discord.handle.obj.IUser;
 import sx.blah.discord.util.EmbedBuilder;
+
+import java.awt.*;
+import java.util.Collection;
+import java.util.List;
 
 public class Dev implements ICommand {
 
@@ -84,7 +80,7 @@ public class Dev implements ICommand {
     EmbedBuilder em = Util.basicEmbed("basic", user.getAvatarURL(), "Dev - List",
         GlobalConstants.CLIENT_PICTURE, "Requested By: " + Util.getNameAndDescrim(user));
     em.withDesc(
-        "»» `forcesave` - Save every guild.\n»» `guilds` - List every guild.\n»» `quote` - Quotes a message.\n»» `delete` - Deletes the bot's messages (Providing a string of Message IDs)");
+        "ï¿½ï¿½ `forcesave` - Save every guild.\nï¿½ï¿½ `guilds` - List every guild.\nï¿½ï¿½ `quote` - Quotes a message.\nï¿½ï¿½ `delete` - Deletes the bot's messages (Providing a string of Message IDs)");
     Util.sendMessage(channel, em.build());
 
   }
@@ -106,7 +102,7 @@ public class Dev implements ICommand {
   public boolean moduleGuilds(IUser user, IChannel channel) {
     String res = "";
     for (IGuild g : GlobalConstants.client.getGuilds()) {
-      res += "»» " + g.getName() + "\n»»»» " + Util.getNameAndDescrim(g.getOwner()) + "\n\n";
+      res += "ï¿½ï¿½ " + g.getName() + "\nï¿½ï¿½ï¿½ï¿½ " + Util.getNameAndDescrim(g.getOwner()) + "\n\n";
       if (res.length() >= 1050)
         break;
     }

@@ -1,10 +1,10 @@
 package me.xaanit.auxilium.interfaces;
 
-import java.util.List;
-
 import me.xaanit.auxilium.objects.Role;
 import me.xaanit.auxilium.util.Enums.CommandType;
 import sx.blah.discord.handle.obj.IGuild;
+
+import java.util.List;
 
 public interface ICommand {
 

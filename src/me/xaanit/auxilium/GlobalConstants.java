@@ -1,11 +1,11 @@
 package me.xaanit.auxilium;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import me.xaanit.auxilium.objects.Config;
 import me.xaanit.auxilium.objects.Guild;
 import sx.blah.discord.api.IDiscordClient;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class GlobalConstants {
 

@@ -1,8 +1,5 @@
 package me.xaanit.auxilium.commands;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import me.xaanit.auxilium.GlobalConstants;
 import me.xaanit.auxilium.interfaces.ICommand;
 import me.xaanit.auxilium.objects.Role;
@@ -12,6 +9,9 @@ import sx.blah.discord.handle.obj.IChannel;
 import sx.blah.discord.handle.obj.IGuild;
 import sx.blah.discord.handle.obj.IUser;
 import sx.blah.discord.util.EmbedBuilder;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Help implements ICommand {
 
@@ -67,9 +67,9 @@ public class Help implements ICommand {
       for (ICommand c : commands)
         if (c.getType() == t)
           if (content.equals("None"))
-            content = "»» " + c.getCommmandName() + "\n";
+            content = "ï¿½ï¿½ " + c.getCommmandName() + "\n";
           else
-            content += "»» " + c.getCommmandName() + "\n";
+            content += "ï¿½ï¿½ " + c.getCommmandName() + "\n";
       em.appendField(t.toString(), content, false);
     }
     Util.sendMessage(channel, em.build());

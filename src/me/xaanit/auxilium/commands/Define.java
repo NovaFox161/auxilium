@@ -1,7 +1,5 @@
 package me.xaanit.auxilium.commands;
 
-import java.util.List;
-
 import me.xaanit.auxilium.interfaces.ICommand;
 import me.xaanit.auxilium.objects.Role;
 import me.xaanit.auxilium.util.Enums.CommandType;
@@ -10,6 +8,8 @@ import sx.blah.discord.handle.obj.IChannel;
 import sx.blah.discord.handle.obj.IGuild;
 import sx.blah.discord.handle.obj.IUser;
 import sx.blah.discord.util.EmbedBuilder;
+
+import java.util.List;
 
 public class Define implements ICommand {
 

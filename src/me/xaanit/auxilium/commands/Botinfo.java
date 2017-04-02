@@ -1,23 +1,18 @@
 package me.xaanit.auxilium.commands;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.vdurmont.emoji.Emoji;
 import com.vdurmont.emoji.EmojiManager;
-
 import me.xaanit.auxilium.GlobalConstants;
 import me.xaanit.auxilium.interfaces.ICommand;
 import me.xaanit.auxilium.objects.Role;
 import me.xaanit.auxilium.util.Enums.CommandType;
 import me.xaanit.auxilium.util.Util;
 import sx.blah.discord.api.IShard;
-import sx.blah.discord.handle.obj.IChannel;
-import sx.blah.discord.handle.obj.IGuild;
-import sx.blah.discord.handle.obj.IMessage;
-import sx.blah.discord.handle.obj.IReaction;
-import sx.blah.discord.handle.obj.IUser;
+import sx.blah.discord.handle.obj.*;
 import sx.blah.discord.util.EmbedBuilder;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Botinfo implements ICommand {
 
@@ -172,9 +167,9 @@ public class Botinfo implements ICommand {
     EmbedBuilder em = Util.basicEmbed("basic", GlobalConstants.CLIENT_PICTURE,
         "Botinfo - Other bots", "", message.getEmbeds().get(0).getFooter().getText());
     em.withDesc(
-        "»» [Tatsumaki](https://www.tatsumaki.xyz/profile) - This is an all around amazing bot.\n"
-            + "»» [Dyno]() - This is good for music\n"
-            + "»» [DisCal](https://www.cloudcraftgaming.com/discal/) - This is a very good bot for organising events.");
+        "ï¿½ï¿½ [Tatsumaki](https://www.tatsumaki.xyz/profile) - This is an all around amazing bot.\n"
+            + "ï¿½ï¿½ [Dyno]() - This is good for music\n"
+            + "ï¿½ï¿½ [DisCal](https://www.cloudcraftgaming.com/discal/) - This is a very good bot for organising events.");
     appendNaviInfo(em);
     Emoji[] toAdd = getEmojiList(4);
     Util.removeAllReactions(message);
@@ -190,9 +185,9 @@ public class Botinfo implements ICommand {
   }
 
   public String getNavigationInfo() {
-    return "»» 0 - Navigation page.\n" + "»» 1 - Patreon information.\n"
-        + "»» 2 - Basic bot information.\n"
-        + "»» 3 - Support server information\n»» 4 - Bots I suggest";
+    return "ï¿½ï¿½ 0 - Navigation page.\n" + "ï¿½ï¿½ 1 - Patreon information.\n"
+        + "ï¿½ï¿½ 2 - Basic bot information.\n"
+        + "ï¿½ï¿½ 3 - Support server information\nï¿½ï¿½ 4 - Bots I suggest";
   }
 
   public void appendNaviInfo(EmbedBuilder e) {

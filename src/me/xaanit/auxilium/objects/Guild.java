@@ -1,10 +1,10 @@
 package me.xaanit.auxilium.objects;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import me.xaanit.auxilium.interfaces.ICommand;
 import me.xaanit.auxilium.util.Util;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Guild {
 
