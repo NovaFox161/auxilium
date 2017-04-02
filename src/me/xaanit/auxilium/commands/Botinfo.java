@@ -8,7 +8,6 @@ import com.vdurmont.emoji.EmojiManager;
 
 import me.xaanit.auxilium.GlobalConstants;
 import me.xaanit.auxilium.interfaces.ICommand;
-import me.xaanit.auxilium.objects.Channel;
 import me.xaanit.auxilium.objects.Role;
 import me.xaanit.auxilium.util.Enums.CommandType;
 import me.xaanit.auxilium.util.Util;
@@ -23,8 +22,6 @@ import sx.blah.discord.util.EmbedBuilder;
 public class Botinfo implements ICommand {
 
   private String name = "botinfo";
-  private List<Channel> channels = new ArrayList<Channel>();
-  private List<Role> roles = new ArrayList<Role>();
 
 
   public Botinfo() {}
@@ -84,7 +81,6 @@ public class Botinfo implements ICommand {
         return;
       }
     }
-
     EmbedBuilder em = Util.basicEmbed("basic", GlobalConstants.CLIENT_PICTURE,
         "Botinfo - Navigation", "", "Requested by: " + Util.getNameAndDescrim(user));
     appendNaviInfo(em);
@@ -134,11 +130,12 @@ public class Botinfo implements ICommand {
         "", message.getEmbeds().get(0).getFooter().getText());
     em.appendField("Current Ping [Shard " + shard.getInfo()[0] + "]",
         shard.getResponseTime() + " ms", true);
-    em.appendField("Version", Util.readConfig("version"), true);
+    em.appendField("Version", GlobalConstants.CONFIG.getVersion(), true);
     em.appendField("Size [Shard" + shard.getInfo()[0] + "]",
         shard.getGuilds().size() + " [" + shard.getUsers().size() + " users]", false);
     em.appendField("Current Dev",
-        Util.getNameAndDescrim(GlobalConstants.client.getUserByID(Util.readConfig("dev"))), false);
+        Util.getNameAndDescrim(GlobalConstants.client.getUserByID(GlobalConstants.CONFIG.getDev())),
+        false);
     appendNaviInfo(em);
     Emoji[] toAdd = getEmojiList(2);
     Util.removeAllReactions(message);

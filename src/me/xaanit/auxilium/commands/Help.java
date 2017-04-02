@@ -58,7 +58,7 @@ public class Help implements ICommand {
     if (a)
       return;
 
-    ICommand[] commands = new ICommand[] {new Help(), new Botinfo()};
+    ICommand[] commands = Util.getCommandList();
     CommandType[] types = new CommandType[] {CommandType.INFO};
     EmbedBuilder em = Util.basicEmbed("basic", GlobalConstants.CLIENT_PICTURE, "Help - List",
         user.getAvatarURL(), "Requested by: " + Util.getNameAndDescrim(user));

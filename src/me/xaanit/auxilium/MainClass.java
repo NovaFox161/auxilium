@@ -9,8 +9,8 @@ import sx.blah.discord.api.ClientBuilder;
 public class MainClass {
 
   public static void main(String[] args) {
-
-    String token = Util.readConfig("token");
+    Util.loadConfig();
+    String token = GlobalConstants.CONFIG.getToken();
     GlobalConstants.client =
         new ClientBuilder().withRecommendedShardCount().withToken(token).build();
     registerListeners();

@@ -6,14 +6,14 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.Clock;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.EnumSet;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
-
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -21,8 +21,11 @@ import com.vdurmont.emoji.Emoji;
 
 import me.xaanit.auxilium.GlobalConstants;
 import me.xaanit.auxilium.commands.Botinfo;
+import me.xaanit.auxilium.commands.Define;
 import me.xaanit.auxilium.commands.Help;
+import me.xaanit.auxilium.commands.Userinfo;
 import me.xaanit.auxilium.interfaces.ICommand;
+import me.xaanit.auxilium.objects.Config;
 import me.xaanit.auxilium.objects.Guild;
 import sx.blah.discord.api.internal.json.objects.EmbedObject;
 import sx.blah.discord.handle.obj.IChannel;
@@ -40,32 +43,51 @@ import sx.blah.discord.util.RequestBuffer;
 public class Util {
 
   /* Files */
+
   /**
-   * Reads a JSON file for a value.
-   * 
-   * @param read The JSON key to read
-   * @return The JSON value.
+   * Saves the config file
    */
-  public static String readConfig(String read) {
-    JSONObject jsonObject = null;
+  public static void saveConfig() {
+    Gson gson = new GsonBuilder().setPrettyPrinting().create();
+    String s = gson.toJson(GlobalConstants.CONFIG);
+    File aFile = new File(GlobalConstants.PATH + "config.json");
+    if (!aFile.exists())
+      try {
+        aFile.createNewFile();
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+
+    FileWriter fw = null;
     try {
-      File aFile = new File(GlobalConstants.PATH + "config.json");
-
-      FileReader fr = null;
-      fr = new FileReader(aFile);
-
-      JSONParser parser = new JSONParser();
-      Object obj = null;
-      obj = parser.parse(fr);
-
-      fr.close();
-
-      jsonObject = (JSONObject) obj;
-    } catch (Exception ex) {
-      // TODO: Error handling
+      fw = new FileWriter(aFile);
+    } catch (IOException e) {
+      e.printStackTrace();
     }
-    String s = (String) jsonObject.get(read);
-    return s;
+
+    try {
+      fw.write(s);
+      fw.close();
+    } catch (IOException e) {
+
+      e.printStackTrace();
+    }
+
+  }
+
+  /**
+   * Loads the config file.
+   */
+  public static void loadConfig() {
+    File f = new File(GlobalConstants.PATH + "config.json");
+    Gson g = new Gson();
+    FileReader fr = null;
+    try {
+      fr = new FileReader(f);
+    } catch (FileNotFoundException e) {
+      e.printStackTrace();
+    }
+    GlobalConstants.CONFIG = g.fromJson(fr, Config.class);
   }
 
   /**
@@ -74,6 +96,8 @@ public class Util {
    * @param g The guild to save
    */
   public static void save(Guild g) {
+    for (ICommand c : getCommandList())
+      g.addCommand(c.getCommmandName());
     Gson gson = new GsonBuilder().setPrettyPrinting().create();
     String s = gson.toJson(g);
     File aFile = new File(GlobalConstants.PATH + "\\guilds\\" + g.getId() + ".json");
@@ -83,7 +107,7 @@ public class Util {
       } catch (IOException e) {
         e.printStackTrace();
       }
-    
+
     FileWriter fw = null;
     try {
       fw = new FileWriter(aFile);
@@ -107,8 +131,8 @@ public class Util {
    * @param f The file to look at
    * @return The newly created Guild.
    */
-  public static Guild load(Guild g1) {
-    File f = new File(GlobalConstants.PATH + "\\guilds\\" + g1.getId() + ".json");
+  public static Guild load(IGuild g1) {
+    File f = new File(GlobalConstants.PATH + "\\guilds\\" + g1.getID() + ".json");
     Gson g = new Gson();
     FileReader fr = null;
     try {
@@ -118,6 +142,17 @@ public class Util {
     }
     return g.fromJson(fr, Guild.class);
   }
+
+  /**
+   * Emergancy save of both guilds and config
+   */
+  public static void emergencySave() {
+    for (String key : GlobalConstants.guilds.keySet())
+      Util.save(GlobalConstants.guilds.get(key));
+    System.out.println("Guilds saved.");
+    Util.saveConfig();
+    System.out.println("Config saved");}
+  
 
   /* Bot */
   /**
@@ -148,7 +183,7 @@ public class Util {
    * @return The command list
    */
   public static ICommand[] getCommandList() {
-    return new ICommand[] {new Botinfo(), new Help()};
+    return new ICommand[] {new Botinfo(), new Help(), new Userinfo(), new Define()};
   }
 
   /* General */
@@ -176,6 +211,25 @@ public class Util {
     if (!footerText.equals(""))
       em.withFooterText(footerText);
     return em;
+  }
+
+  /**
+   * Changes a LocalDateTime to a readable human String
+   * 
+   * @param date The date to convert
+   * @return The readable string
+   */
+  @SuppressWarnings("static-access")
+  public static String readableTime(LocalDateTime date) {
+    LocalTime time = date.toLocalTime().now(Clock.systemUTC());
+    return (date.getDayOfWeek().toString().charAt(0)
+        + date.getDayOfWeek().toString().substring(1).toLowerCase())
+        + ", "
+        + (date.getMonth().toString().charAt(0)
+            + date.getMonth().toString().substring(1).toLowerCase())
+        + " " + date.getDayOfMonth() + " " + date.getYear() + " | "
+        + (time.getHour() > 12 ? time.getHour() - 12 : time) + ":" + time.getMinute() + ":"
+        + time.getSecond() + (time.getHour() > 12 ? " PM" : " AM") + " [UTC]";
   }
 
   /**

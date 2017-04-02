@@ -29,6 +29,15 @@ public class Guild {
     return null;
   }
 
+  public void addCommand(String com) {
+    if (getCommand(com) != null)
+      return;
+    ICommand[] coms = Util.getCommandList();
+    for (int i = 0; i < coms.length; i++)
+      if (coms[i].getCommmandName().equalsIgnoreCase(com))
+        commands.add(new Command(com));
+  }
+
   public String getPrefix() {
     return this.prefix;
   }

@@ -3,6 +3,8 @@ package me.xaanit.auxilium.objects;
 import java.util.ArrayList;
 import java.util.List;
 
+import me.xaanit.auxilium.interfaces.ICommand;
+import me.xaanit.auxilium.util.Util;
 import sx.blah.discord.handle.obj.IChannel;
 import sx.blah.discord.handle.obj.IRole;
 
@@ -21,6 +23,25 @@ public class Command {
 
   public String getName() {
     return this.name;
+  }
+
+
+  public ICommand getCommand() {
+    for (ICommand c : Util.getCommandList())
+      if (c.getCommmandName().equalsIgnoreCase(name))
+        return c;
+    return null;
+  }
+
+  public List<Role> getRoles() {
+    return roles;
+  }
+
+  public List<IChannel> getChannels() {
+    List<IChannel> list = new ArrayList<IChannel>();
+    for (Channel c : channels)
+      list.add(c.getChannel());
+    return list;
   }
 
   public void allowRole(IRole role) {
