@@ -77,7 +77,7 @@ public class Dev implements ICommand {
     EmbedBuilder em = Util.basicEmbed("basic", user.getAvatarURL(), "Dev - List",
         GlobalConstants.CLIENT_PICTURE, "Requested By: " + Util.getNameAndDescrim(user));
     em.withDesc(
-        "�� `forcesave` - Save every guild.\n�� `guilds` - List every guild.\n�� `quote` - Quotes a message.\n�� `delete` - Deletes the bot's messages (Providing a string of Message IDs)");
+        "»» `forcesave` - Save every guild.\n»» `guilds` - List every guild.\n»» `quote` - Quotes a message.\n»» `delete` - Deletes the bot's messages (Providing a string of Message IDs)");
     Util.sendMessage(channel, em.build());
 
   }
@@ -99,7 +99,7 @@ public class Dev implements ICommand {
   private boolean moduleGuilds(IUser user, IChannel channel) {
     String res = "";
     for (IGuild g : GlobalConstants.client.getGuilds()) {
-      res += "�� " + g.getName() + "\n���� " + Util.getNameAndDescrim(g.getOwner()) + "\n\n";
+      res += "»» " + g.getName() + "\n»» »» " + Util.getNameAndDescrim(g.getOwner()) + "\n\n";
       if (res.length() >= 1050)
         break;
     }

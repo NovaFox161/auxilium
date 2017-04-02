@@ -64,9 +64,9 @@ public class Help implements ICommand {
       for (ICommand c : commands)
         if (c.getType() == t)
           if (content.equals("None"))
-            content = "�� " + c.getCommandName() + "\n";
+            content = "»» " + c.getCommandName() + "\n";
           else
-            content += "�� " + c.getCommandName() + "\n";
+            content += "»» " + c.getCommandName() + "\n";
       em.appendField(t.toString(), content, false);
     }
     Util.sendMessage(channel, em.build());

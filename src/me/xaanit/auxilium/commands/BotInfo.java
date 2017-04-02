@@ -164,9 +164,9 @@ public class BotInfo implements ICommand {
     EmbedBuilder em = Util.basicEmbed("basic", GlobalConstants.CLIENT_PICTURE,
         "Botinfo - Other bots", "", message.getEmbeds().get(0).getFooter().getText());
     em.withDesc(
-        "�� [Tatsumaki](https://www.tatsumaki.xyz/profile) - This is an all around amazing bot.\n"
-            + "�� [Dyno]() - This is good for music\n"
-            + "�� [DisCal](https://www.cloudcraftgaming.com/discal/) - This is a very good bot for organising events.");
+        "»» [Tatsumaki](https://www.tatsumaki.xyz/profile) - This is an all around amazing bot.\n"
+            + "»» [Dyno]() - This is good for music\n"
+            + "»» [DisCal](https://www.cloudcraftgaming.com/discal/) - This is a very good bot for organising events.");
     appendNavInfo(em);
     Emoji[] toAdd = getEmojiList(4);
     Util.removeAllReactions(message);
@@ -182,9 +182,9 @@ public class BotInfo implements ICommand {
   }
 
   private String getNavigationInfo() {
-    return "�� 0 - Navigation page.\n" + "�� 1 - Patreon information.\n"
-        + "�� 2 - Basic bot information.\n"
-        + "�� 3 - Support server information\n�� 4 - Bots I suggest";
+    return "»» 0 - Navigation page.\n" + "»» 1 - Patreon information.\n"
+        + "»» 2 - Basic bot information.\n"
+        + "»» 3 - Support server information\n»» 4 - Bots I suggest";
   }
 
   private void appendNavInfo(EmbedBuilder e) {
