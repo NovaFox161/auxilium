@@ -214,12 +214,13 @@ public class Dev implements ICommand {
       }
       res += "Timestamp: " + Util.readableTime(m.getCreationDate()) + "\n";
       int i = 0;
-      for (IEmbedField ef : e.getEmbedFields()) {
-        res += "Field Title [ID: " + i + "]: " + ef.getName() + "\n\n";
-        res += "Field Text [ID: " + i + "]: " + ef.getValue() + "\n\n";
-        i++;
+      if (e.getEmbedFields() != null) {
+        for (IEmbedField ef : e.getEmbedFields()) {
+          res += "Field Title [ID: " + i + "]: " + ef.getName() + "\n\n";
+          res += "Field Text [ID: " + i + "]: " + ef.getValue() + "\n\n";
+          i++;
+        }
       }
-
     }
 
     if (res.equals(""))
