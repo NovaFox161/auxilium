@@ -12,23 +12,20 @@ public class Command {
 
   private String name = "";
 
-  private List<Channel> channels = new ArrayList<Channel>();
-  private List<Role> roles = new ArrayList<Role>();
-
-
+  private List<Channel> channels = new ArrayList<>();
+  private List<Role> roles = new ArrayList<>();
 
   public Command(String name) {
     this.name = name;
   }
 
-  public String getName() {
+  String getName() {
     return this.name;
   }
 
-
   public ICommand getCommand() {
     for (ICommand c : Util.getCommandList())
-      if (c.getCommmandName().equalsIgnoreCase(name))
+      if (c.getCommandName().equalsIgnoreCase(name))
         return c;
     return null;
   }
@@ -38,7 +35,7 @@ public class Command {
   }
 
   public List<IChannel> getChannels() {
-    List<IChannel> list = new ArrayList<IChannel>();
+    List<IChannel> list = new ArrayList<>();
     for (Channel c : channels)
       list.add(c.getChannel());
     return list;

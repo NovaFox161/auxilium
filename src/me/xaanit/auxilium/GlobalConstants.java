@@ -18,7 +18,4 @@ public class GlobalConstants {
 
   public static Map<String, Guild> guilds = new HashMap<>();
   public static Config CONFIG;
-
-
-
 }

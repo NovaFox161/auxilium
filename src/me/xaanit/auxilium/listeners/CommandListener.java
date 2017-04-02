@@ -1,7 +1,7 @@
 package me.xaanit.auxilium.listeners;
 
 import me.xaanit.auxilium.GlobalConstants;
-import me.xaanit.auxilium.commands.Botinfo;
+import me.xaanit.auxilium.commands.BotInfo;
 import me.xaanit.auxilium.commands.Define;
 import me.xaanit.auxilium.commands.Dev;
 import me.xaanit.auxilium.commands.Help;
@@ -16,7 +16,7 @@ import java.util.Arrays;
 
 public class CommandListener {
 
-
+  @SuppressWarnings("unused")
   @EventSubscriber
   public void onUserCommand(MessageReceivedEvent event) {
     IUser user = event.getAuthor();
@@ -39,18 +39,18 @@ public class CommandListener {
       return;
     }
 
-
-    if (m.toString().startsWith("+"))
+        //m.toString()... really xaanit??? Just like string to string method you like....
+    if (m.startsWith("+"))
       getCommand(args, user, channel, message);
   }
 
-  public void getCommand(String[] args, IUser user, IChannel channel, IMessage message) {
+  private void getCommand(String[] args, IUser user, IChannel channel, IMessage message) {
     switch (args[0].toLowerCase().replaceFirst("\\+", "")) {
       case "botinfo":
-        new Botinfo().runCommand(user, channel, null, message);
+        new BotInfo().runCommand(user, channel, null, message);
         break;
       case "help":
-        new Help().runCommmand(args, user, channel);
+        new Help().runCommand(args, user, channel);
         break;
       case "dev":
         new Dev().runCommand(args, user, channel, message);
@@ -60,5 +60,4 @@ public class CommandListener {
         break;
     }
   }
-
 }

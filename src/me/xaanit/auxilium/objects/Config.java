@@ -10,14 +10,12 @@ public class Config {
   private int dic_calls;
   private int the_calls;
 
-  public Config() {}
-
+  //You don't need to make constructors if empty, compiler handles that...
 
 
   public void setVersion(String version) {
     this.version = version;
   }
-
 
 
   public void useCall(String call) {
@@ -50,9 +48,7 @@ public class Config {
     return this.dic_key;
   }
 
-  public String getThesuarusKey() {
+  public String getThesaurusKey() {
     return this.ths_key;
   }
-
-
 }

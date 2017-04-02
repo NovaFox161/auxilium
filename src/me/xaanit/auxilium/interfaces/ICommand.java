@@ -8,15 +8,13 @@ import java.util.List;
 
 public interface ICommand {
 
-
-
   /**
    * Getting the name of the command.
    * 
    * @return Command Name
    * 
    */
-  public String getCommmandName();
+  String getCommandName();
 
   /**
    * Returns a list of roles who can run the command.
@@ -24,29 +22,26 @@ public interface ICommand {
    * @param guild The guild to look at
    * @return Roles that can run command.
    */
-  public List<Role> getRoles(IGuild guild);
+  List<Role> getRoles(IGuild guild);
 
   /**
    * Gets Command Type
    * 
    * @return Command type
    */
-  public CommandType getType();
+  CommandType getType();
 
   /**
    * Gets the text for the help command.
    * 
    * @return The help text
    */
-  public String helpText();
+  String helpText();
 
   /**
    * Get the arguments for the command.
    * 
    * @return The arguments
    */
-  public String arguments();
-
-
-
+  String arguments();
 }

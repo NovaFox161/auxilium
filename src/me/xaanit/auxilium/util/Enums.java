@@ -2,12 +2,11 @@ package me.xaanit.auxilium.util;
 
 public class Enums {
 
-  public static enum CommandType {
+  public enum CommandType {
     INFO, DEV
   }
 
-  public static enum CustomError {
+  public enum CustomError {
     MISSING_PERMISSIONS, MISSING_ARGUMENTS
   }
-
 }

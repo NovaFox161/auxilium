@@ -1,7 +1,7 @@
 package me.xaanit.auxilium.listeners;
 
 import me.xaanit.auxilium.GlobalConstants;
-import me.xaanit.auxilium.commands.Botinfo;
+import me.xaanit.auxilium.commands.BotInfo;
 import me.xaanit.auxilium.util.Util;
 import sx.blah.discord.api.events.EventSubscriber;
 import sx.blah.discord.handle.impl.events.guild.channel.message.reaction.ReactionAddEvent;
@@ -9,8 +9,8 @@ import sx.blah.discord.handle.impl.events.guild.channel.message.reaction.Reactio
 import sx.blah.discord.handle.obj.*;
 import sx.blah.discord.util.EmbedBuilder;
 
+@SuppressWarnings("unused")
 public class ReactionListener {
-
 
   @EventSubscriber
   public void onReactionRemove(ReactionRemoveEvent event) {
@@ -20,11 +20,12 @@ public class ReactionListener {
     IMessage message = event.getMessage();
 
     if (message.getEmbeds().size() > 0) {
-      if (message.getEmbeds().get(0).getAuthor().getName().startsWith("Botinfo"))
-        if (Util.isValidPageEmoji(reaction))
-          new Botinfo().runCommand(user, channel, reaction, message);
+      if (message.getEmbeds().get(0).getAuthor().getName().startsWith("Botinfo")) {
+        if (Util.isValidPageEmoji(reaction)) {
+          new BotInfo().runCommand(user, channel, reaction, message);
+        }
+      }
     }
-
   }
 
   @EventSubscriber
@@ -48,5 +49,4 @@ public class ReactionListener {
     Util.removeReaction(event.getMessage(), event.getUser(), event.getReaction());
 
   }
-
 }

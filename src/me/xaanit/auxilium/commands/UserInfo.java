@@ -8,14 +8,14 @@ import sx.blah.discord.handle.obj.IGuild;
 
 import java.util.List;
 
-public class Userinfo implements ICommand {
+public class UserInfo implements ICommand {
 
   private String name = "userinfo";
 
-  public Userinfo() {}
+  public UserInfo() {}
 
   @Override
-  public String getCommmandName() {
+  public String getCommandName() {
     return this.name;
   }
 
@@ -38,5 +38,4 @@ public class Userinfo implements ICommand {
   public String arguments() {
     return "userinfo [user]";
   }
-
 }

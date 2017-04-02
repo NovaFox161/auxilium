@@ -9,8 +9,7 @@ public class Role {
   private String guild;
   private String id;
 
-
-  public Role(IRole role, IGuild guild) {
+  Role(IRole role, IGuild guild) {
     this.guild = guild.getID();
     this.id = role.getID();
   }
@@ -19,8 +18,7 @@ public class Role {
     return GlobalConstants.client.getGuildByID(guild);
   }
 
-  public IRole getRole() {
+  IRole getRole() {
     return getGuild().getRoleByID(id);
   }
-
 }

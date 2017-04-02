@@ -21,13 +21,13 @@ public class Help implements ICommand {
   public Help() {}
 
   @Override
-  public String getCommmandName() {
+  public String getCommandName() {
     return this.name;
   }
 
   @Override
   public List<Role> getRoles(IGuild guild) {
-    return new ArrayList<Role>();
+    return new ArrayList<>();
   }
 
   @Override
@@ -45,15 +45,12 @@ public class Help implements ICommand {
     return "help [command]";
   }
 
-
-
-  public void runCommmand(String[] args, IUser user, IChannel channel) {
+  public void runCommand(String[] args, IUser user, IChannel channel) {
 
     if (args.length > 1)
       args[1] = args[1].toLowerCase();
-    boolean a = args.length == 1 ? false
-        : args[1].equals("botinfo") ? moduleBotinfo(user, channel)
-            : args[1].equals("help") ? moduleHelp(user, channel) : false;
+    boolean a = args.length != 1 && (args[1].equals("botinfo") ? moduleBotinfo(user, channel)
+            : args[1].equals("help") && moduleHelp(user, channel));
 
     if (a)
       return;
@@ -67,25 +64,24 @@ public class Help implements ICommand {
       for (ICommand c : commands)
         if (c.getType() == t)
           if (content.equals("None"))
-            content = "�� " + c.getCommmandName() + "\n";
+            content = "�� " + c.getCommandName() + "\n";
           else
-            content += "�� " + c.getCommmandName() + "\n";
+            content += "�� " + c.getCommandName() + "\n";
       em.appendField(t.toString(), content, false);
     }
     Util.sendMessage(channel, em.build());
   }
 
-
-  public boolean moduleBotinfo(IUser user, IChannel channel) {
+  private boolean moduleBotinfo(IUser user, IChannel channel) {
     EmbedBuilder em = Util.basicEmbed("basic", GlobalConstants.CLIENT_PICTURE, "Help - Botinfo",
         user.getAvatarURL(), "Requested by: " + Util.getNameAndDescrim(user));
-    em.appendField("Description", new Botinfo().helpText(), false);
-    em.appendField("Arguments", new Botinfo().arguments(), false);
+    em.appendField("Description", new BotInfo().helpText(), false);
+    em.appendField("Arguments", new BotInfo().arguments(), false);
     Util.sendMessage(channel, em.build());
     return true;
   }
 
-  public boolean moduleHelp(IUser user, IChannel channel) {
+  private boolean moduleHelp(IUser user, IChannel channel) {
     EmbedBuilder em = Util.basicEmbed("basic", GlobalConstants.CLIENT_PICTURE, "Help - Help",
         user.getAvatarURL(), "Requested by: " + Util.getNameAndDescrim(user));
     em.appendField("Description", helpText(), false);

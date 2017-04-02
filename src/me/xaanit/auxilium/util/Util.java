@@ -4,10 +4,10 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.vdurmont.emoji.Emoji;
 import me.xaanit.auxilium.GlobalConstants;
-import me.xaanit.auxilium.commands.Botinfo;
+import me.xaanit.auxilium.commands.BotInfo;
 import me.xaanit.auxilium.commands.Define;
 import me.xaanit.auxilium.commands.Help;
-import me.xaanit.auxilium.commands.Userinfo;
+import me.xaanit.auxilium.commands.UserInfo;
 import me.xaanit.auxilium.interfaces.ICommand;
 import me.xaanit.auxilium.objects.Config;
 import me.xaanit.auxilium.objects.Guild;
@@ -31,12 +31,13 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class Util {
 
-  /* Files */
+  //Files
 
   /**
    * Saves the config file
    */
-  public static void saveConfig() {
+  @SuppressWarnings("ResultOfMethodCallIgnored")
+  private static void saveConfig() {
     Gson gson = new GsonBuilder().setPrettyPrinting().create();
     String s = gson.toJson(GlobalConstants.CONFIG);
     File aFile = new File(GlobalConstants.PATH + "config.json");
@@ -55,10 +56,10 @@ public class Util {
     }
 
     try {
+      assert fw != null;
       fw.write(s);
       fw.close();
-    } catch (IOException e) {
-
+    } catch (IOException | NullPointerException e) {
       e.printStackTrace();
     }
 
@@ -76,6 +77,7 @@ public class Util {
     } catch (FileNotFoundException e) {
       e.printStackTrace();
     }
+    assert fr != null;
     GlobalConstants.CONFIG = g.fromJson(fr, Config.class);
   }
 
@@ -84,9 +86,10 @@ public class Util {
    * 
    * @param g The guild to save
    */
+  @SuppressWarnings("ResultOfMethodCallIgnored")
   public static void save(Guild g) {
     for (ICommand c : getCommandList())
-      g.addCommand(c.getCommmandName());
+      g.addCommand(c.getCommandName());
     Gson gson = new GsonBuilder().setPrettyPrinting().create();
     String s = gson.toJson(g);
     File aFile = new File(GlobalConstants.PATH + "\\guilds\\" + g.getId() + ".json");
@@ -105,6 +108,7 @@ public class Util {
     }
 
     try {
+      assert fw != null;
       fw.write(s);
       fw.close();
     } catch (IOException e) {
@@ -129,11 +133,12 @@ public class Util {
     } catch (FileNotFoundException e) {
       e.printStackTrace();
     }
+    assert fr != null;
     return g.fromJson(fr, Guild.class);
   }
 
   /**
-   * Emergancy save of both guilds and config
+   * Emergency save of both guilds and config
    */
   public static void emergencySave() {
     for (String key : GlobalConstants.guilds.keySet())
@@ -143,7 +148,7 @@ public class Util {
     System.out.println("Config saved");}
   
 
-  /* Bot */
+  //Bot
   /**
    * Checks to see if the bot has a permission in a channel
    * 
@@ -172,10 +177,10 @@ public class Util {
    * @return The command list
    */
   public static ICommand[] getCommandList() {
-    return new ICommand[] {new Botinfo(), new Help(), new Userinfo(), new Define()};
+    return new ICommand[] {new BotInfo(), new Help(), new UserInfo(), new Define()};
   }
 
-  /* General */
+  //General
   /**
    * Makes a basic EmbedBuilder for you.
    *
@@ -226,7 +231,7 @@ public class Util {
    * @param input The word to convert to hex
    * @return The hex (what they entered if not found)
    */
-  public static String usedColours(String input) {
+  private static String usedColours(String input) {
     switch (input.toLowerCase()) {
       case "basic":
         return "249999";
@@ -260,7 +265,7 @@ public class Util {
    * @param hex The hex to convert
    * @return A color object.
    */
-  public static Color hexToColor(String hex) {
+  private static Color hexToColor(String hex) {
     int[] arr = hexToRGB(hex);
     return new Color(arr[0], arr[1], arr[2]);
   }
@@ -342,7 +347,7 @@ public class Util {
     return GlobalConstants.guilds.get(guild.getID());
   }
 
-  /* Message Management */
+  //Message Management
 
   /**
    * Deletes a specified IMessage
@@ -385,6 +390,7 @@ public class Util {
    * @param message The message to edit
    * @param str The string to edit it with
    */
+  @SuppressWarnings("Duplicates")
   public static void editMessage(IMessage message, String str) {
     RequestBuffer.request(() -> {
       try {
@@ -402,6 +408,7 @@ public class Util {
    * @param message The message to edit
    * @param e The EmbedObject to edit it with
    */
+  @SuppressWarnings("Duplicates")
   public static void editMessage(IMessage message, EmbedObject e) {
     RequestBuffer.request(() -> {
       try {
@@ -446,13 +453,13 @@ public class Util {
    * @param str The string to send
    * @return The message
    */
+  @SuppressWarnings("Duplicates")
   public static IMessage sendMessage(IChannel channel, String str) {
     return RequestBuffer.request(() -> {
       try {
         return channel.sendMessage(str);
       } catch (DiscordException ex) {
-        // Since D4J throws a 403 instead of an error when you can't DM
-        // a user.
+        // Since D4J throws a 403 instead of an error when you can't DM a user.
         if (!channel.isPrivate())
           sendMessage(channel, str);
       } catch (MissingPermissionsException e) {
@@ -471,13 +478,13 @@ public class Util {
    * @param em The Embed to send
    * @return The message
    */
+  @SuppressWarnings("Duplicates")
   public static IMessage sendMessage(IChannel channel, EmbedObject em) {
     return RequestBuffer.request(() -> {
       try {
         return channel.sendMessage(em);
       } catch (DiscordException ex) {
-        // Since D4J throws a 403 instead of an error when you can't DM
-        // a user.
+        // Since D4J throws a 403 instead of an error when you can't DM a user.
         if (!channel.isPrivate())
           sendMessage(channel, em);
       } catch (MissingPermissionsException e) {
@@ -522,8 +529,6 @@ public class Util {
         m.removeReaction(r);
       } catch (DiscordException ex) {
         removeReaction(m, r);
-      } catch (MissingPermissionsException e1) {
-        throw e1;
       }
     });
   }
@@ -541,8 +546,6 @@ public class Util {
         m.removeReaction(u, r);
       } catch (DiscordException ex) {
         removeReaction(m, u, r);
-      } catch (MissingPermissionsException e1) {
-        throw e1;
       }
     });
   }
@@ -558,8 +561,6 @@ public class Util {
         m.removeAllReactions();
       } catch (DiscordException ex) {
         removeAllReactions(m);
-      } catch (MissingPermissionsException e1) {
-        throw e1;
       }
     });
   }
@@ -617,7 +618,7 @@ public class Util {
     return sendMessage(channel, em.build());
   }
 
-  /* Role Management */
+  //Role Management
 
   public static Permissions getPerm(String input) {
     switch (input.toLowerCase()) {
@@ -720,7 +721,6 @@ public class Util {
       }
     });
   }
-
 }
 
 // RequestBuffer.request(() -> {try {} catch (DiscordException ex) {}});

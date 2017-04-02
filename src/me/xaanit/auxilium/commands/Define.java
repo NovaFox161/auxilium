@@ -18,7 +18,7 @@ public class Define implements ICommand {
   public Define() {}
 
   @Override
-  public String getCommmandName() {
+  public String getCommandName() {
     return this.name;
   }
 
@@ -42,7 +42,6 @@ public class Define implements ICommand {
     return "define <word>";
   }
 
-
   public void runCommand(String[] args, IUser user, IChannel channel) {
     if (args.length == 1) {
       EmbedBuilder em = Util.basicEmbed("error", user.getAvatarURL(), "Missing arguments",
@@ -60,10 +59,6 @@ public class Define implements ICommand {
       em.withDesc("Use `" + Util.getGuild(channel.getGuild()).getPrefix()
           + "define recursion` for more info on this word.");
       Util.sendMessage(channel, em.build());
-      return;
     }
-    
-    
-
   }
 }

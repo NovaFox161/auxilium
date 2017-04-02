@@ -21,11 +21,10 @@ public class Dev implements ICommand {
 
   private String name = "dev";
 
-
   public Dev() {}
 
   @Override
-  public String getCommmandName() {
+  public String getCommandName() {
     return this.name;
   }
 
@@ -65,13 +64,11 @@ public class Dev implements ICommand {
       return;
     }
 
-    boolean a = args.length == 1 ? false
-        : args[1].equalsIgnoreCase("forcesave") ? moduleForceSave(user, channel)
+    boolean a = args.length != 1 && (args[1].equalsIgnoreCase("forcesave") ? moduleForceSave(user, channel)
             : args[1].equalsIgnoreCase("guilds") ? moduleGuilds(user, channel)
-                : args[1].equalsIgnoreCase("quote") ? moduleQuote(args, user, channel, m)
-                    : args[1].equalsIgnoreCase("delete") ? moduleDelete(args, user, channel)
-                        : args[1].equalsIgnoreCase("class")
-                            ? moduleJavadocClass(args, user, channel) : false;
+            : args[1].equalsIgnoreCase("quote") ? moduleQuote(args, user, channel, m)
+            : args[1].equalsIgnoreCase("delete") ? moduleDelete(args, user, channel)
+            : args[1].equalsIgnoreCase("class") && moduleJavadocClass(args, user, channel));
 
     if (a)
       return;
@@ -86,7 +83,7 @@ public class Dev implements ICommand {
   }
 
 
-  public boolean moduleForceSave(IUser user, IChannel channel) {
+  private boolean moduleForceSave(IUser user, IChannel channel) {
     for (String key : GlobalConstants.guilds.keySet()) {
       Util.save(GlobalConstants.guilds.get(key));
     }
@@ -99,7 +96,7 @@ public class Dev implements ICommand {
     return true;
   }
 
-  public boolean moduleGuilds(IUser user, IChannel channel) {
+  private boolean moduleGuilds(IUser user, IChannel channel) {
     String res = "";
     for (IGuild g : GlobalConstants.client.getGuilds()) {
       res += "�� " + g.getName() + "\n���� " + Util.getNameAndDescrim(g.getOwner()) + "\n\n";
@@ -114,7 +111,7 @@ public class Dev implements ICommand {
     return true;
   }
 
-  public boolean moduleQuote(String[] args, IUser user, IChannel channel, IMessage m) {
+  private boolean moduleQuote(String[] args, IUser user, IChannel channel, IMessage m) {
     Util.deleteMessage(m, channel);
     IMessage message = channel.getGuild().getMessageByID(args[2]);
     if (message == null) {
@@ -137,7 +134,7 @@ public class Dev implements ICommand {
 
   }
 
-  public boolean moduleDelete(String[] args, IUser user, IChannel channel) {
+  private boolean moduleDelete(String[] args, IUser user, IChannel channel) {
 
     for (String str : args) {
       if (str.replaceAll("[0-9]", "").equals("")) {
@@ -156,7 +153,7 @@ public class Dev implements ICommand {
     return true;
   }
 
-  public boolean moduleJavadocClass(String[] args, IUser user, IChannel channel) {
+  private boolean moduleJavadocClass(String[] args, IUser user, IChannel channel) {
     if (args.length == 2) {
       EmbedBuilder em = Util.basicEmbed("error", channel.getGuild().getIconURL(), "Dev - Javadoc",
           user.getAvatarURL(), "Requested By: " + Util.getNameAndDescrim(user));
@@ -188,7 +185,7 @@ public class Dev implements ICommand {
     return true;
   }
 
-  public String getContent(IMessage m) {
+  private String getContent(IMessage m) {
     String res = "";
 
     if (m.getAttachments().size() > 0)
@@ -217,12 +214,10 @@ public class Dev implements ICommand {
       }
       res += "Timestamp: " + Util.readableTime(m.getCreationDate()) + "\n";
       int i = 0;
-      if (e != null) {
-        for (IEmbedField ef : e.getEmbedFields()) {
-          res += "Field Title [ID: " + i + "]: " + ef.getName() + "\n\n";
-          res += "Field Text [ID: " + i + "]: " + ef.getValue() + "\n\n";
-          i++;
-        }
+      for (IEmbedField ef : e.getEmbedFields()) {
+        res += "Field Title [ID: " + i + "]: " + ef.getName() + "\n\n";
+        res += "Field Text [ID: " + i + "]: " + ef.getValue() + "\n\n";
+        i++;
       }
 
     }
@@ -240,7 +235,8 @@ public class Dev implements ICommand {
    * @param max The max size
    * @return The trimmed String, or the original if it was small enough
    */
-  public static String trimToSize(String input, int max) {
+  @SuppressWarnings("SameParameterValue")
+  private static String trimToSize(String input, int max) {
     if (input.length() < max) {
       return input;
     }
@@ -266,9 +262,8 @@ public class Dev implements ICommand {
    * @param input The input String
    * @return The String without any formatting
    */
-  public static String stripFormatting(String input) {
+  private static String stripFormatting(String input) {
     String strippedContent = input.replaceAll("[*`_~]", "");
     return strippedContent.replaceAll("\\[(.+?)]\\(.+?\\)", "$1");
   }
-
 }

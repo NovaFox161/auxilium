@@ -7,6 +7,7 @@ import sx.blah.discord.handle.impl.events.ReadyEvent;
 import sx.blah.discord.handle.impl.events.shard.DisconnectedEvent;
 import sx.blah.discord.handle.obj.IGuild;
 
+@SuppressWarnings("unused")
 public class BotListener {
 
   @EventSubscriber
@@ -21,5 +22,4 @@ public class BotListener {
   public void onDisconnect(DisconnectedEvent event) {
     Util.emergencySave();
   }
-
 }

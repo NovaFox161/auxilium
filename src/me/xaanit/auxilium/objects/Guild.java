@@ -12,14 +12,14 @@ public class Guild {
   private String id = "";
   private boolean devOverride = true;
   private boolean crashReports = true;
-  private List<Command> commands = new ArrayList<Command>();
+  private List<Command> commands = new ArrayList<>();
 
 
   public Guild(String id) {
     this.id = id;
     ICommand[] arr = Util.getCommandList();
     for (ICommand c : arr)
-      this.commands.add(new Command(c.getCommmandName()));
+      this.commands.add(new Command(c.getCommandName()));
   }
 
   public Command getCommand(String com) {
@@ -32,9 +32,9 @@ public class Guild {
   public void addCommand(String com) {
     if (getCommand(com) != null)
       return;
-    ICommand[] coms = Util.getCommandList();
-    for (int i = 0; i < coms.length; i++)
-      if (coms[i].getCommmandName().equalsIgnoreCase(com))
+    ICommand[] cmds = Util.getCommandList();
+    for (ICommand cmd : cmds)
+      if (cmd.getCommandName().equalsIgnoreCase(com))
         commands.add(new Command(com));
   }
 

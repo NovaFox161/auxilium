@@ -9,8 +9,7 @@ public class Channel {
   private String guild;
   private String id;
 
-
-  public Channel(IChannel channel, IGuild guild) {
+  Channel(IChannel channel, IGuild guild) {
     this.guild = guild.getID();
     this.id = channel.getID();
   }
@@ -19,8 +18,7 @@ public class Channel {
     return GlobalConstants.client.getGuildByID(guild);
   }
 
-  public IChannel getChannel() {
+  IChannel getChannel() {
     return getGuild().getChannelByID(id);
   }
-
 }
