@@ -17,7 +17,6 @@ I think the folks over at [Discord4J](https://github.com/austinv11/Discord4J) sa
 Auxilium uses a number of open source projects to work properly:
 
 * [Discord4J](https://github.com/austinv11/Discord4J) - Java wrapper for the Discord API.
-* [Json.simple](https://code.google.com/archive/p/json-simple/) - Json Parser // Getting rid of soon
 * [GSON](https://github.com/google/gson) - For pretty printing and DB
 * [JWKTL](https://dkpro.github.io/dkpro-jwktl/) - For the `define` Command
 
